@@ -10,6 +10,16 @@ Melhoria no código do projeto rinha-de-backend originário do repositório:
 https://github.com/viniciusfcf/rinha-de-backend-2023-q3/tree/main/quarkus-app-revanche
 
 
+## ✔️ Required
+* Maven: 3.8.4
+* Java version: 17
+* Docker version: 20.10.17
+* Docker-compose version: v2.2.2
+
+# Sobre:
+Projeto backend feito em Quarkus 3.3.1 seguindo as regras:
+https://github.com/zanfranceschi/rinha-de-backend-2023-q3/blob/main/INSTRUCOES.md
+
 
 ## 💻 Getting started
 
@@ -40,11 +50,7 @@ $ docker-compose -f docker-compose-native.yml --env-file ./.env up
 ```
 
 
-## ✔️ Required
-* Maven: 3.8.4
-* Java version: 17
-* Docker version: 20.10.17
-* Docker-compose version: v2.2.2
+
 
 
 
