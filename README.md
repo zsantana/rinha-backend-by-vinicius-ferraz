@@ -57,6 +57,20 @@ $ docker-compose -f docker-compose-native.yml --env-file ./.env up
 
 * Perfil da máquina:
 
+![image](https://github.com/zsantana/rinha-backend-by-vinicius-ferraz/assets/17239827/ad699558-476d-4e02-b1a2-03b943f49062)
 
 
 * Resultado e performance:
+
+![image](https://github.com/zsantana/rinha-backend-by-vinicius-ferraz/assets/17239827/e770a4b8-bfce-47e5-9a53-a5584ca2d15b)
+
+
+![image](https://github.com/zsantana/rinha-backend-by-vinicius-ferraz/assets/17239827/bd8a6b56-49e4-432e-a0e5-c6db87b520e6)
+
+* Erros:
+* ![image](https://github.com/zsantana/rinha-backend-by-vinicius-ferraz/assets/17239827/521b2ad2-7786-4ebc-8916-6d8b44a273c1)
+
+* Requisições por segundos:
+![image](https://github.com/zsantana/rinha-backend-by-vinicius-ferraz/assets/17239827/add7fb2f-b364-48b9-be3f-4e9d0cb049aa)
+
+
