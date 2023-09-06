@@ -1,0 +1,124 @@
+version: "3.6"
+#IMPORTANTE: Você terá 1.5 CPUs e 3.0GB
+services:
+  api1:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+    hostname: api1
+    environment:
+      DB_HOST: db
+      QUARKUS_LOG_CONSOLE_ENABLE: 'false'
+      QUARKUS_LOG_FILE_ENABLE: 'false'
+      #QUARKUS_DATASOURCE_REACTIVE_MAX_SIZE: 100
+    depends_on:
+      db:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '0.35'
+          memory: '0.5GB'
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 1000000
+        hard: 1000000
+
+  api2:
+    build:
+      context: .
+      dockerfile: src/main/docker/Dockerfile.jvm
+    hostname: api1
+    environment:
+      DB_HOST: db
+      QUARKUS_LOG_CONSOLE_ENABLE: 'false'
+      QUARKUS_LOG_FILE_ENABLE: 'false'
+      #QUARKUS_DATASOURCE_REACTIVE_MAX_SIZE: 100
+    depends_on:
+      db:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          cpus: '0.35'
+          memory: '0.5GB'
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 1000000
+        hard: 1000000
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      api1:
+        condition: service_started
+      api2:
+        condition: service_started
+    ports:
+      - "9999:9999"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: '0.2GB'
+
+  db:
+    image: postgres:15.4
+    environment:
+      POSTGRES_USER: quarkus
+      POSTGRES_PASSWORD: quarkus
+      POSTGRES_DB: quarkus
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Nome do volume adicionado aqui
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: '1.5GB'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U", "quarkus"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    command: 
+      - "postgres"
+      - "-c"
+      - "max_connections=400"
+      - "-c"
+      - "shared_buffers=512MB"
+      - "-c"
+      - "effective_cache_size=512MB"
+      - "-c"
+      - "fsync=off"
+      - "-c"
+      - "synchronous_commit=off"
+      - "-c"
+      - "checkpoint_timeout=1d"
+      - "-c"
+      - "max_wal_size=1GB"
+      - "-c"
+      - "full_page_writes=off"
+
+  pgadmin:
+    container_name: pgadmin
+    hostname: pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    
+volumes:
+  postgres_data:  # Definindo o nome do volume aqui
