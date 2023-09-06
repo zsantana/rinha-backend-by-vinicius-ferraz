@@ -1,5 +1,10 @@
-# Rinha de Backend - By Vinícius Ferraz
+# Rinha de Backend
 
+Desafio original:
+https://github.com/zanfranceschi/rinha-de-backend-2023-q3?s=08
+
+
+# By Vinícius Ferraz
 Melhoria no código do projeto rinha-de-backend originário do repositório:
 
 https://github.com/viniciusfcf/rinha-de-backend-2023-q3/tree/main/quarkus-app-revanche
